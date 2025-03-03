@@ -66,20 +66,6 @@ def stream_csv():
         socketio.emit("csv_update", [latest_data])  # Send data to frontend
         time.sleep(1)  # Simulate real-time streaming
 
-@app.route("/start_stream", methods=["POST"])
-def start_stream():
-    """HTTP route to start streaming via WebSocket"""
-    handle_start_stream()  # Call the WebSocket event handler
-    return {"message": "Streaming started"}, 200
-
-
-@socketio.on("start_stream")
-def handle_start_stream():
-    """Start streaming when frontend requests (runs in a background thread)"""
-    thread = threading.Thread(target=stream_csv)
-    thread.daemon = True  # Ensures the thread closes when the main program stops
-    thread.start()
-
 
 # **Voltage Prediction API**
 @app.route("/predict_voltage", methods=["POST"])
@@ -103,15 +89,12 @@ def predict_voltage():
         if ambient_temp is None:
             return jsonify({"error": "Could not fetch real-time temperature"}), 500
 
-        # print(f"📡 Fetched Ambient Temperature: {ambient_temp}°C for {location_name}")
-
         # Use latest streamed data, replacing ambient temperature
         feature_values = np.array([[ambient_temp] + [latest_data[feature] for feature in selected_features if feature != "Ambient_C_Temp"]])
 
         # Predict voltage
         predicted_voltage = model.predict(feature_values)[0]
-        # predicted_voltage = round(predicted_voltage, 2)
-        predicted_voltage = float(predicted_voltage)
+        predicted_voltage = float(predicted_voltage)  # Convert NumPy float32 to Python float
 
         print(f"Predicted Voltage: {predicted_voltage}V")
         print(f"Actual Data Used: {latest_data}")
@@ -128,4 +111,10 @@ def predict_voltage():
 
 
 if __name__ == "__main__":
+    # Start streaming automatically in a background thread
+    thread = threading.Thread(target=stream_csv)
+    thread.daemon = True  # Ensures the thread stops when the main program exits
+    thread.start()
+
+    # Run the Flask-SocketIO app
     socketio.run(app, debug=True, host="0.0.0.0", port=5000)
