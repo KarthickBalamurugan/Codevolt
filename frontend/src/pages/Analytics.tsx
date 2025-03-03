@@ -248,22 +248,18 @@ const DateText = styled.span<{ isActive?: boolean }>`
 
 const IconButtonsContainer = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 1rem; // Reduced gap between icons
-  padding: 0.8rem 3rem;
-  width: 100%;
-
-  @media (max-width: 768px) {
-    padding: 0.5rem 1.5rem;
-    gap: 0.8rem;
-  }
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
+  padding: 0.8rem 3rem;
+  width: 100%;
+`;
+
+const IconsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  width: 100%;
 `;
 
 const IconButton = styled.button<{ active?: boolean }>`
@@ -276,10 +272,9 @@ const IconButton = styled.button<{ active?: boolean }>`
   color: ${props => props.active ? '#fff' : 'rgba(255, 255, 255, 0.3)'};
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 50%;
 
   svg {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
 
   &:hover {
@@ -292,12 +287,13 @@ const StatsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
 `;
 
 const StatValue = styled.div`
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
   color: white;
   display: flex;
   align-items: baseline;
@@ -305,18 +301,15 @@ const StatValue = styled.div`
 `;
 
 const StatUnit = styled.span`
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
 `;
 
 const StatLabel = styled.span`
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.4);
   font-weight: 500;
-  max-width: 60px;
-  text-align: center;
-  white-space: nowrap;
 `;
 
 const Analytics = () => {
@@ -391,35 +384,27 @@ const Analytics = () => {
         </DayScroller>
         
         <IconButtonsContainer>
-          <IconWrapper>
+          <IconsWrapper>
             <IconButton
               active={activeView === 'performance'}
               onClick={() => setActiveView('performance')}
             >
               <TbChartDonut />
             </IconButton>
-            <StatsContainer>
-              <StatValue>
-                234<StatUnit>km</StatUnit>
-              </StatValue>
-              <StatLabel>Total Distance</StatLabel>
-            </StatsContainer>
-          </IconWrapper>
-
-          <IconWrapper>
             <IconButton
               active={activeView === 'energy'}
               onClick={() => setActiveView('energy')}
             >
               <BsLightningCharge />
             </IconButton>
-            <StatsContainer>
-              <StatValue>
-                89<StatUnit>%</StatUnit>
-              </StatValue>
-              <StatLabel>Battery Level</StatLabel>
-            </StatsContainer>
-          </IconWrapper>
+          </IconsWrapper>
+          
+          <StatsContainer>
+            <StatValue>
+              234<StatUnit>km</StatUnit>
+            </StatValue>
+            <StatLabel>Total Distance</StatLabel>
+          </StatsContainer>
         </IconButtonsContainer>
 
         {/* Analytics content will go here */}
