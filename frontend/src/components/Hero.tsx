@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import RaptheeBg from '../assets/Rapthee_bg.png';
 
 const HeroContainer = styled.div`
   width: 100%;
@@ -7,99 +8,87 @@ const HeroContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 0;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 50px);
+  }
 `;
 
 const TitleContainer = styled.div`
   position: relative;
-  padding-left: 2.5rem;
-  padding-top: 2.5rem;
+  padding: 2rem 2rem 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.1rem; // Reduced gap between YOUR and Raptrix
+  gap: 0.1rem;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1.5rem 0;
+  }
 `;
 
 const YourText = styled.span`
   color: rgba(255, 255, 255, 0.3);
-  font-size: 0.7rem; // Slightly smaller
+  font-size: 1rem;
   font-weight: 300;
   font-style: italic;
-  letter-spacing: 6px; // Reduced letter spacing
+  letter-spacing: 6px;
   text-transform: uppercase;
-  margin: 0;
   line-height: 1;
   font-family: 'Inter', sans-serif;
-  transform: translateX(2px); // Reduced offset
-  transition: all 0.3s ease;
-  
-  &:hover {
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 7px;
+
+  @media (max-width: 768px) {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
   }
 `;
 
 const RaptrixText = styled.span`
   color: #ffffff;
-  font-size: 3.2rem; // Increased size
+  font-size: 3.2rem;
   font-weight: 800;
   font-style: italic;
   letter-spacing: 2px;
   line-height: 0.9;
-  margin: 0;
-  padding: 0;
   font-family: 'Inter', sans-serif;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    letter-spacing: 3px;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  }
-  
+  margin-top: 0.0rem;
   @media (max-width: 768px) {
-    font-size: 2.6rem; // Increased mobile size too
+    font-size: 2.4rem;
+    letter-spacing: 1px;
   }
 `;
 
-const ContentSection = styled.div`
+const ProductSection = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
+  padding: 1rem;
+  margin-top: -2rem;
 
-const ProductContainer = styled.div`
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1000px;
-  padding: 2rem 0;
+  @media (max-width: 768px) {
+    margin-top: 0;
+    padding: 0.5rem;
+    align-items: flex-start;
+  }
 `;
 
 const ProductImage = styled.img`
-  max-width: 70%;
-  max-height: 60vh;
+  max-width: 85%;
+  max-height: 72vh;
   object-fit: contain;
-  filter: drop-shadow(0 0 60px rgba(255, 255, 255, 0.12));
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: rotateX(12deg) rotateY(-18deg) translateY(20px);
-  transform-style: preserve-3d;
 
-  &:hover {
-    transform: rotateX(8deg) rotateY(-12deg) translateY(5px);
-    filter: drop-shadow(0 0 70px rgba(255, 255, 255, 0.2));
+  @media (max-width: 768px) {
+    max-width: 100%;
+    max-height: 60vh;
+    margin-top: 1rem;
   }
-`;
 
-const BottomSection = styled.div`
-  width: 100%;
-  min-height: 200px;
-  // Add your styles for bottom content here
+  @media (max-width: 480px) {
+    max-height: 55vh;
+  }
 `;
 
 const Hero = () => {
@@ -110,18 +99,12 @@ const Hero = () => {
         <RaptrixText>Raptrix</RaptrixText>
       </TitleContainer>
 
-      <ContentSection>
-        <ProductContainer>
-          <ProductImage 
-            src="Rapthee_white.png" 
-            alt="Rapthee Product"
-          />
-        </ProductContainer>
-        
-        <BottomSection>
-          {/* Add your bottom content here */}
-        </BottomSection>
-      </ContentSection>
+      <ProductSection>
+        <ProductImage 
+          src={RaptheeBg} 
+          alt="Rapthee Product"
+        />
+      </ProductSection>
     </HeroContainer>
   );
 };

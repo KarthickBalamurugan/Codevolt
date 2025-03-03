@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -347,7 +348,7 @@ const MenuItem = styled.li`
 const Navbar = () => {
   const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connected'>('disconnected');
   const [lastSyncTime, setLastSyncTime] = useState<Date | null>(null);
-  const [hasNotification, setHasNotification] = useState(false);
+  const [hasNotification] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [activeToggle, setActiveToggle] = useState<'messages' | 'vehicles'>('messages');
   const [statusTextKey, setStatusTextKey] = useState(0); // Add this for text animation
