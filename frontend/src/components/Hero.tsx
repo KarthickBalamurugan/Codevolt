@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import RaptheeBg from '../assets/Rapthee_bg.png';
 
 const HeroContainer = styled.div`
   width: 100%;
@@ -86,14 +85,14 @@ const ProductImage = styled.img`
   max-width: 70%;
   max-height: 60vh;
   object-fit: contain;
-  filter: drop-shadow(0 0 60px rgba(255, 255, 255, 0.08));
+  filter: drop-shadow(0 0 60px rgba(255, 255, 255, 0.12));
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   transform: rotateX(12deg) rotateY(-18deg) translateY(20px);
   transform-style: preserve-3d;
 
   &:hover {
     transform: rotateX(8deg) rotateY(-12deg) translateY(5px);
-    filter: drop-shadow(0 0 70px rgba(255, 255, 255, 0.12));
+    filter: drop-shadow(0 0 70px rgba(255, 255, 255, 0.2));
   }
 `;
 
@@ -114,7 +113,7 @@ const Hero = () => {
       <ContentSection>
         <ProductContainer>
           <ProductImage 
-            src={RaptheeBg} 
+            src="Rapthee_white.png" 
             alt="Rapthee Product"
           />
         </ProductContainer>
