@@ -1,13 +1,13 @@
-// import Dev from "./components/Dev"
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
+import Footer from "./components/Footer"
 
 const App = () => {
   return (
     <>
-    <Navbar/>
-    {/* <Dev/> */}
-    <Hero/>
+      <Navbar />
+      <Hero />
+      <Footer />
     </>
   )
 }
