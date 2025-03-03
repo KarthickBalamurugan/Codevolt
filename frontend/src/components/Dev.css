@@ -1,0 +1,192 @@
+.dashboard {
+    background-color: #121212;
+    min-height: 100vh;
+    padding: 2rem;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  h1 {
+    text-align: center;
+    margin: 0;
+  }
+  
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .data-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .data-card h2 {
+    margin-top: 0;
+  }
+  
+  .data-card p {
+    margin: 5px 0;
+  }
+  
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .chart-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chart-container h2 {
+    margin-top: 0;
+  }
+  
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .grid-item {
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .grid-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .header {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+  
+  .primary-stats {
+    grid-column: span 2;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .power-chart {
+    grid-column: span 2;
+  }
+  
+  .temp-metrics {
+    grid-column: span 2;
+  }
+  
+  .efficiency {
+    grid-column: span 1;
+  }
+  
+  .speed-torque {
+    grid-column: span 1;
+  }
+  
+  .big-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #8884d8;
+    margin: 0.5rem 0;
+  }
+  
+  .subtitle {
+    color: #666;
+    margin-top: 0.5rem;
+  }
+  
+  .temp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .temp-item {
+    text-align: center;
+    padding: 1rem;
+    background-color: #242424;
+    border-radius: 8px;
+  }
+  
+  .temp-value {
+    font-size: 1.5rem;
+    color: #8884d8;
+    margin-top: 0.5rem;
+  }
+  
+  .performance-metrics {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+  }
+  
+  .metric {
+    text-align: center;
+  }
+  
+  .metric .value {
+    font-size: 1.5rem;
+    color: #8884d8;
+    margin-top: 0.5rem;
+  }
+  
+  @media (max-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .header {
+      grid-column: 1 / -1;
+    }
+  
+    .primary-stats,
+    .power-chart,
+    .temp-metrics {
+      grid-column: 1 / -1;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .data-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .charts-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .bento-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .dashboard {
+      padding: 1rem;
+    }
+  
+    .temp-grid {
+      grid-template-columns: 1fr;
+    }
+  }
