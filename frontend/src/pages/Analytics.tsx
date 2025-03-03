@@ -292,12 +292,17 @@ const StatsContainer = styled.div`
 `;
 
 const StatValue = styled.div`
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 3.2rem;
+  font-weight: 800;
   color: white;
   display: flex;
   align-items: baseline;
   gap: 0.2rem;
+  margin-bottom: 0.2rem;
+
+  @media (max-width: 768px) {
+    font-size: 2.8rem;
+  }
 `;
 
 const StatUnit = styled.span`
@@ -310,6 +315,133 @@ const StatLabel = styled.span`
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.4);
   font-weight: 500;
+`;
+
+const RidesSection = styled.div`
+  margin-top: 2rem;
+  padding: 0 2rem;
+  width: 100%;
+`;
+
+const RidesHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+`;
+
+const RidesTitle = styled.h3`
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  font-weight: 500;
+`;
+
+const RidesCount = styled.span`
+  color: white;
+  font-weight: 600;
+`;
+
+const RidesList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const RideCard = styled.div`
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+  }
+`;
+
+const RideInfo = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+`;
+
+const RideTime = styled.span`
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 60px;
+`;
+
+const RouteVisual = styled.div`
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  position: relative;
+  background: transparent;
+  border: 3px solid transparent;
+  background-image: conic-gradient(
+    #4CAF50 0%,
+    #4CAF50 40%,
+    #2196F3 40%,
+    #2196F3 70%,
+    #F44336 70%,
+    #F44336 100%
+  );
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    background: #000;
+    border-radius: 50%;
+  }
+`;
+
+const RideDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+`;
+
+const RideName = styled.span`
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+`;
+
+const RideDistance = styled.div`
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+`;
+
+const ExploreSection = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  margin-left: auto;
+`;
+
+const ExploreIcon = styled.span`
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.4rem;
+  transition: transform 0.3s ease;
+
+  ${RideCard}:hover & {
+    transform: translateX(4px);
+    color: rgba(255, 255, 255, 0.7);
+  }
 `;
 
 const Analytics = () => {
@@ -407,7 +539,43 @@ const Analytics = () => {
           </StatsContainer>
         </IconButtonsContainer>
 
-        {/* Analytics content will go here */}
+        <RidesSection>
+          <RidesHeader>
+            <RidesTitle>Rides</RidesTitle>
+            <RidesCount>2 rides</RidesCount>
+          </RidesHeader>
+
+          <RidesList>
+            {[
+              {
+                time: "14:30",
+                name: "Morning Commute",
+                distance: "12.5 km",
+                duration: "45 min"
+              },
+              {
+                time: "18:45",
+                name: "Evening Return",
+                distance: "13.2 km",
+                duration: "50 min"
+              }
+            ].map((ride, index) => (
+              <RideCard key={index}>
+                <RideInfo>
+                  <RideTime>{ride.time}</RideTime>
+                  <RideDetails>
+                    <RideName>{ride.name}</RideName>
+                    <RideDistance>{ride.distance} • {ride.duration}</RideDistance>
+                  </RideDetails>
+                  <RouteVisual />
+                  <ExploreSection>
+                    <ExploreIcon>→</ExploreIcon>
+                  </ExploreSection>
+                </RideInfo>
+              </RideCard>
+            ))}
+          </RidesList>
+        </RidesSection>
       </MainContent>
     </PageContainer>
   );
