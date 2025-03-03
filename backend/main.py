@@ -6,6 +6,10 @@ import time
 import threading
 import numpy as np
 import requests
+from dotenv import load_dotenv 
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
@@ -14,7 +18,7 @@ socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 model = joblib.load("xgboost_voltage_predictor.pkl")
 
 # Weather API Config
-WEATHER_API_KEY = "075cc31eaff8fbce5f455495c36df26b"  # Replace with your actual API key
+WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 # CSV File Path
