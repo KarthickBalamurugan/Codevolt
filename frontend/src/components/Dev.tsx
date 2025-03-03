@@ -1,46 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
 
-interface StreamData {
-  timestamp: string;
-  value: number;
-  message: string;
-}
+const socket = io("http://localhost:5000");
 
-const Dev = () => {
-  const [data, setData] = useState<StreamData | null>(null);
+function App() {
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    const eventSource = new EventSource('http://localhost:8000/stream');
+    // Listen for CSV updates
+    socket.on("csv_update", (newData) => {
+      setData((prevData) => [...prevData, ...newData]);
+    });
 
-    eventSource.onmessage = (event) => {
-      const parsedData = JSON.parse(event.data);
-      setData(parsedData);
-    };
-
-    eventSource.onerror = (error) => {
-      console.error('EventSource failed:', error);
-      eventSource.close();
-    };
+    // Request the backend to start streaming
+    socket.emit("start_stream");
 
     return () => {
-      eventSource.close();
+      socket.off("csv_update");
     };
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Streaming Data</h1>
-      {data ? (
-        <div className="space-y-2">
-          <p>Timestamp: {new Date(data.timestamp).toLocaleString()}</p>
-          <p>Value: {data.value}</p>
-          <p>Message: {data.message}</p>
-        </div>
-      ) : (
-        <p>Waiting for data...</p>
-      )}
+    <div className="p-6 text-white bg-gray-900 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6 text-center">Live CSV Data</h1>
+      <pre className="bg-gray-800 p-4 rounded-lg">{JSON.stringify(data, null, 2)}</pre>
     </div>
-  )
+  );
 }
 
-export default Dev
+export default App;
