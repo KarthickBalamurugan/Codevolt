@@ -13,6 +13,7 @@ const PageContainer = styled.div`
   color: white;
   position: relative;
   z-index: 101;
+  margin-bottom: 5rem; // Added margin to prevent overlap with footer
 `;
 
 const TopSection = styled.div`

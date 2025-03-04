@@ -18,7 +18,7 @@ const PageContainer = styled.div`
   color: white;
   position: relative;
   z-index: 101; // Above navbar
-
+  margin-bottom:8rem;
   @media (max-width: 768px) {
     padding-bottom: 80px; // Space for footer
   }
