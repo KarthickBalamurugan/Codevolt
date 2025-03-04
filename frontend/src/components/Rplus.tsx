@@ -41,10 +41,10 @@ const ToggleButton = styled.button<{ isActive: boolean }>`
   border-radius: 9999px;
   transition: all 0.3s;
   position: relative;
-  color: ${props => props.isActive ? 'black' : 'transparent'};
+  color: ${props => props.isActive ? 'black' : 'black'};
 
   &:hover {
-    color: ${props => props.isActive ? 'black' : 'transparent'};
+    color: ${props => props.isActive ? 'black' : 'black'};
   }
 
   svg {

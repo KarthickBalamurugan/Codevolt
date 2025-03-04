@@ -13,7 +13,10 @@ const Dev: React.FC = () => {
 
     socket.on('csv_update', (newData) => {
       setData((prevData) => {
-        const updatedData = [...prevData, ...newData].slice(-10);
+        const updatedData = [...prevData, ...newData].map(item => ({
+          ...item,
+          Instant_kW: Math.abs(item.Instant_kW) // Convert negative values to positive
+        })).slice(-10);
         setCurrentData(updatedData[updatedData.length - 1]);
         return updatedData;
       });
