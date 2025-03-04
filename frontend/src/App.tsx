@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import SupportService from "./pages/SupportService";
 import Analytics from "./pages/Analytics";
 import Rplus from './components/Rplus';
+// import Curve from './components/Curve';
 
 const App = () => {
   return (

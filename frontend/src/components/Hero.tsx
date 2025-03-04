@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import RaptheeBg from '../assets/Rapthee_bg.png';
+import Curve from './Curve';
 
 const HeroContainer = styled.div`
   width: 100%;
-  min-height: calc(100vh - 60px);
+  min-height: calc(120vh - 60px);
   background-color: #000;
   display: flex;
   flex-direction: column;
@@ -17,7 +18,7 @@ const HeroContainer = styled.div`
 
 const TitleContainer = styled.div`
   position: relative;
-  padding: 2rem 2rem 0;
+  padding: 2rem 2rem 2rem; // Increased bottom padding
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -25,7 +26,7 @@ const TitleContainer = styled.div`
   gap: 0.1rem;
 
   @media (max-width: 768px) {
-    padding: 1.5rem 1.5rem 0;
+    padding: 1.5rem 1.5rem 2rem; // Increased bottom padding for mobile
   }
 `;
 
@@ -63,31 +64,34 @@ const RaptrixText = styled.span`
 const ProductSection = styled.div`
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; // Changed to flex-start
   padding: 1rem;
-  margin-top: -2rem;
+  margin-top: 1rem; // Changed from -2rem to positive value
+  position: relative; // Added position relative
 
   @media (max-width: 768px) {
-    margin-top: 0;
+    margin-top: 0.5rem;
     padding: 0.5rem;
-    align-items: flex-start;
+    align-items: center;
   }
 `;
 
 const ProductImage = styled.img`
   max-width: 85%;
-  max-height: 72vh;
+  max-height: 60vh; // Slightly reduced height
   object-fit: contain;
+  margin-bottom: 2rem;
 
   @media (max-width: 768px) {
     max-width: 100%;
-    max-height: 60vh;
-    margin-top: 1rem;
+    max-height: 50vh;
+    margin-top: 0; // Removed top margin
   }
 
   @media (max-width: 480px) {
-    max-height: 55vh;
+    max-height: 45vh;
   }
 `;
 
@@ -104,6 +108,7 @@ const Hero = () => {
           src={RaptheeBg} 
           alt="Rapthee Product"
         />
+        <Curve />
       </ProductSection>
     </HeroContainer>
   );

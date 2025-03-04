@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { RiHome5Line } from 'react-icons/ri';
-import { TbChartHistogram } from 'react-icons/tb';
-import { BiSupport } from 'react-icons/bi';
+import { Home, BarChart2, Headphones, User } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { LineChart, LifeBuoy } from "lucide-react";
 
 const FooterContainer = styled.footer`
   position: fixed;
@@ -24,7 +24,8 @@ const NavList = styled.nav`
   max-width: 400px;
   margin: 0 auto;
   position: relative;
-  padding: 0.5rem 0;
+  padding: 0.8rem 0;
+  gap: 1rem;
 `;
 
 const Spotlight = styled(motion.div)`
@@ -44,17 +45,21 @@ const Spotlight = styled(motion.div)`
 
 const RplusIcon = styled.div<{ active: boolean }>`
   position: relative;
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1;
-  color: ${props => props.active ? '#009688' : 'rgba(255, 255,   255, 0.5)'};
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: ${props => props.active ? '#00e5ff' : 'rgba(255, 255, 255, 0.5)'};
+  display: flex;
+  align-items: center;
+  filter: ${props => props.active ? 'drop-shadow(0 0 8px rgba(0, 229, 255, 0.4))' : 'none'};
 
-  span {
+  &::after {
+    content: '+';
     position: absolute;
-    top: -4px;
+    top: -6px;
     right: -8px;
     font-size: 0.9rem;
-    color: #009688;
+    color: currentColor;
   }
 `;
 
@@ -70,9 +75,11 @@ const NavItem = styled(motion.div)<{ active: boolean }>`
   width: 100px;
   z-index: 1;
 
-  svg, ${RplusIcon} {
+  svg {
     font-size: 1.6rem;
-    transition: transform 0.3s ease;
+    stroke-width: ${props => props.active ? 2.5 : 1.8};
+    color: ${props => props.active ? '#00e5ff' : 'rgba(255, 255, 255, 0.5)'};
+    filter: ${props => props.active ? 'drop-shadow(0 0 8px rgba(0, 229, 255, 0.4))' : 'none'};
   }
 `;
 
@@ -144,24 +151,41 @@ const Footer = () => {
           />
         </AnimatePresence>
 
-        {['home', 'rplus', 'stats', 'support'].map((tab) => (
-          <NavItem
-            key={tab}
-            active={activeTab === tab}
-            onClick={() => handleNavigation(tab)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {tab === 'home' && <RiHome5Line />}
-            {tab === 'rplus' && (
-              <RplusIcon active={activeTab === tab}>
-                R<span>+</span>
-              </RplusIcon>
-            )}
-            {tab === 'stats' && <TbChartHistogram />}
-            {tab === 'support' && <BiSupport />}
-          </NavItem>
-        ))}
+        <NavItem
+          active={activeTab === 'home'}
+          onClick={() => handleNavigation('home')}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Home size={26} />
+        </NavItem>
+
+        <NavItem
+          active={activeTab === 'rplus'}
+          onClick={() => handleNavigation('rplus')}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <RplusIcon active={activeTab === 'rplus'}>R</RplusIcon>
+        </NavItem>
+
+        <NavItem
+          active={activeTab === 'stats'}
+          onClick={() => handleNavigation('stats')}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <LineChart size={24} />
+        </NavItem>
+
+        <NavItem
+          active={activeTab === 'support'}
+          onClick={() => handleNavigation('support')}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <LifeBuoy size={26} />
+        </NavItem>
       </NavList>
     </FooterContainer>
   );

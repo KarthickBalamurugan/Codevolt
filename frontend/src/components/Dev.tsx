@@ -113,7 +113,7 @@ const Dev: React.FC = () => {
             </div>
             <div className="temp-item">
               <span>Battery</span>
-              <div className="temp-value">{currentData?.Pack_Avg_C_Temp}°C</div>
+              <div className="temp-value">{currentData?.Pack_Avg_C_Temp.toFixed(2)}°C</div>
             </div>
             <div className="temp-item">
               <span>Ambient</span>

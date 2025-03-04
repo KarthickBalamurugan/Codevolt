@@ -13,7 +13,6 @@ const PageContainer = styled.div`
   color: white;
   position: relative;
   z-index: 101;
-  margin-bottom: 5rem; // Added margin to prevent overlap with footer
 `;
 
 const TopSection = styled.div`
@@ -351,14 +350,13 @@ const RidesList = styled.div`
 const RideCard = styled.div`
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  width: 100%;
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);
@@ -367,28 +365,25 @@ const RideCard = styled.div`
 `;
 
 const RideInfo = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 1.5rem;
+  display: flex;
+  gap: 1.2rem;
   align-items: center;
-  width: 100%;
 `;
 
 const RideTime = styled.span`
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1rem;
-  font-weight: 600;
-  min-width: 60px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-width: 45px;
 `;
 
 const RouteVisual = styled.div`
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   position: relative;
-  background: transparent;
-  border: 3px solid transparent;
-  background-image: conic-gradient(
+  background: conic-gradient(
+    from 0deg,
     #4CAF50 0%,
     #4CAF50 40%,
     #2196F3 40%,
@@ -396,47 +391,34 @@ const RouteVisual = styled.div`
     #F44336 70%,
     #F44336 100%
   );
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    right: 3px;
-    bottom: 3px;
-    background: #000;
-    border-radius: 50%;
-  }
 `;
 
 const RideDetails = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  flex: 1;
+  gap: 0.3rem;
 `;
 
 const RideName = styled.span`
   color: white;
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: 500;
 `;
 
 const RideDistance = styled.div`
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
 `;
 
 const ExploreSection = styled.div`
   display: flex;
-  align-items: center;
-  padding-left: 1rem;
-  margin-left: auto;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
 `;
 
 const ExploreIcon = styled.span`
   color: rgba(255, 255, 255, 0.4);
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   transition: transform 0.3s ease;
 
   ${RideCard}:hover & {
@@ -447,7 +429,7 @@ const ExploreIcon = styled.span`
 
 const Analytics = () => {
   const navigate = useNavigate();
-  const [currentMonth] = useState('March');
+  const [currentMonth, setCurrentMonth] = useState('March');
   const [activeDay, setActiveDay] = useState(new Date().getDate());
   const [activeView, setActiveView] = useState<'performance' | 'energy'>('performance');
 
@@ -551,28 +533,26 @@ const Analytics = () => {
               {
                 time: "14:30",
                 name: "Morning Commute",
-                distance: "12.5 km",
-                duration: "45 min"
+                distance: "12.5 km"
               },
               {
                 time: "18:45",
                 name: "Evening Return",
-                distance: "13.2 km",
-                duration: "50 min"
+                distance: "13.2 km"
               }
             ].map((ride, index) => (
               <RideCard key={index}>
                 <RideInfo>
                   <RideTime>{ride.time}</RideTime>
+                  <RouteVisual />
                   <RideDetails>
                     <RideName>{ride.name}</RideName>
-                    <RideDistance>{ride.distance} • {ride.duration}</RideDistance>
+                    <RideDistance>{ride.distance}</RideDistance>
                   </RideDetails>
-                  <RouteVisual />
-                  <ExploreSection>
-                    <ExploreIcon>→</ExploreIcon>
-                  </ExploreSection>
                 </RideInfo>
+                <ExploreSection>
+                  <ExploreIcon>→</ExploreIcon>
+                </ExploreSection>
               </RideCard>
             ))}
           </RidesList>
