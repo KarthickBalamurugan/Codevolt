@@ -11,6 +11,7 @@ const Container = styled.div`
   gap: 1rem;
   width: 100%;
   margin-top: 2rem;
+  margin-bottom: 5rem;
 `
 
 const ToggleContainer = styled.div`

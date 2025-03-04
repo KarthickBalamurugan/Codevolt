@@ -8,10 +8,12 @@ import numpy as np
 import requests
 from dotenv import load_dotenv 
 import os
+from flask_cors import CORS  # Add this import
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)  # Add this line right after Flask initialization
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
 # Load the trained model
@@ -78,20 +80,31 @@ def predict_voltage():
     global latest_data
 
     if latest_data is None:
-        return jsonify({"error": "No real-time data available yet. Please wait for streaming to start."}), 500
+        response = jsonify({
+            "error": "No real-time data available yet. Please wait for streaming to start."
+        })
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        return response, 500
 
     try:
         request_data = request.json
 
         # Ensure location name is provided
         if "location" not in request_data:
-            return jsonify({"error": "Missing location name"}), 400
+            response = jsonify({"error": "Missing location name"})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+            return response, 400
         
         location_name = request_data["location"]
         ambient_temp = get_real_time_temperature(location_name)
 
         if ambient_temp is None:
-            return jsonify({"error": "Could not fetch real-time temperature"}), 500
+            response = jsonify({"error": "Could not fetch real-time temperature"})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+            return response, 500
 
         # Use latest streamed data, replacing ambient temperature
         feature_values = np.array([[ambient_temp] + [latest_data[feature] for feature in selected_features if feature != "Ambient_C_Temp"]])
@@ -103,15 +116,21 @@ def predict_voltage():
         print(f"Predicted Voltage: {predicted_voltage}V")
         print(f"Actual Data Used: {latest_data}")
 
-        return jsonify({
+        response = jsonify({
             "predicted_voltage": predicted_voltage,
             "ambient_temperature": ambient_temp,
             "used_data": latest_data
         })
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        return response
 
     except Exception as e:
         print(f"Prediction Error: {e}")
-        return jsonify({"error": str(e)}), 500
+        response = jsonify({"error": str(e)})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        return response, 500
 
 
 if __name__ == "__main__":

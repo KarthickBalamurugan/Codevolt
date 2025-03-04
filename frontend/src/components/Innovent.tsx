@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FaBolt, FaTemperatureLow, FaCar, FaBatteryThreeQuarters } from 'react-icons/fa'
 
+// Styled Components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -83,7 +84,7 @@ const ErrorMessage = styled.p`
   margin-top: 0.5rem;
 `
 
-const SubmitButton = styled.button`
+const SubmitButton = styled.button<{ disabled: boolean }>`
   width: 100%;
   padding: 1rem;
   margin-top: 1.5rem;
@@ -93,8 +94,8 @@ const SubmitButton = styled.button`
   border-radius: 0.75rem;
   font-weight: 600;
   transition: all 0.3s;
-  opacity: ${props => props.disabled ? 0.7 : 1};
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  opacity: ${props => (props.disabled ? 0.7 : 1)};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
 
   &:hover:not(:disabled) {
     transform: translateY(-1px);
@@ -127,7 +128,7 @@ const MainMetrics = styled.div`
   }
 `
 
-const MetricCard = styled.div`
+const MetricCard = styled.div<{ background?: string }>`
   padding: 1.5rem;
   background: ${props => props.background || '#111827'};
   border-radius: 0.75rem;
@@ -215,13 +216,33 @@ const DataItem = styled.div`
   }
 `
 
-const Innovent = () => {
-  const [location, setLocation] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [response, setResponse] = useState(null)
+// TypeScript Interfaces for the API response
+interface BatteryData {
+  SOC: number;
+  SOH: number;
+  HV_Bat_Current_2: number;
+  kWh_Remaining: number;
+  Speed: number;
+  Torque: number;
+  Motor_Temp: number;
+  Instant_kW: number;
+  ECO: boolean;
+  ePedal: boolean;
+}
 
-  const handleSubmit = async (e) => {
+interface ResponseData {
+  predicted_voltage: number;
+  ambient_temperature: number;
+  used_data: BatteryData;
+}
+
+const Innovent: React.FC = () => {
+  const [location, setLocation] = useState<string>('')
+  const [error, setError] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
+  const [response, setResponse] = useState<ResponseData | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!location.trim()) {
       setError('Please enter a location')
@@ -248,9 +269,10 @@ const Innovent = () => {
         throw new Error(errorData.error || 'Server error')
       }
 
-      const data = await res.json()
+      const data: ResponseData = await res.json()
       setResponse(data)
-    } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       if (err.name === 'TypeError' && err.message === 'Failed to fetch') {
         setError('Unable to connect to the server. Please check if the server is running.')
       } else {
